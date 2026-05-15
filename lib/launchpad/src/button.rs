@@ -2,8 +2,10 @@ use launchy::Pad;
 
 const GRID_SIZE: i32 = 8;
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum ButtonType { Grid, Top, Side }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Button {
     pub btn_type: ButtonType,
     pub id: u8,
@@ -11,6 +13,11 @@ pub struct Button {
 }
 
 impl Button {
+    pub fn new(btn_type: ButtonType, id: u8) -> Self {
+        let pad = Self::calc_pad(btn_type.clone(), id);
+        return Self { btn_type, id, pad };
+    }
+
     pub fn from(pad: Pad) -> Self {
         let btype: ButtonType;
         let id: i32;
