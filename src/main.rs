@@ -1,15 +1,17 @@
-use launchpad::{Launchpad, Button, ButtonType};
+use launchpad::{Launchpad, Button, ButtonType, Color};
 use std::error::Error;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let mut launchpad = Launchpad::new()?;
 
-    launchpad.configure_button(Button::new(ButtonType::Top, 1), || {
-        println!("Button pressed!");
+    launchpad.configure_button(Button::new(ButtonType::Grid, 57), |launchpad| {
+        println!("Steam button pressed!");
+        launchpad.color_current_button(Color::GREEN);
     });
 
-    launchpad.configure_button(Button::new(ButtonType::Top, 2), || {
-        println!("Button pressed 2!");
+    launchpad.configure_button(Button::new(ButtonType::Grid, 58), |launchpad| {
+        println!("Plex button pressed!");
+        launchpad.color_current_button(Color::RED);
     });
 
     launchpad.poll()?;
